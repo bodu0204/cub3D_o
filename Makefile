@@ -16,10 +16,10 @@ $(OBJDIR):
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
 	$(MAKE) -C ./minilibx-linux
-	$(CC) $(CFLAGS) $(RLFLAGS) $(OPTIONS) $(OBJS) libft/libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) libft/libft.a -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $<
 
 clean:
 	rm -rf $(OBJDIR)
