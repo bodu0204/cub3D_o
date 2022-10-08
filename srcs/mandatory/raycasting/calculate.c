@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.h                                       :+:      :+:    :+:   */
+/*   calculate.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 20:23:49 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 23:06:34 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/08 22:31:59 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/08 23:06:28 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCASTING_H
-# define RAYCASTING_H
+#include	"../../../includes/raycasting.h"
 
-# include	<math.h>
-# include	<stdbool.h>
-# include	<stdio.h>
-# include	"structure.h"
+double	get_radian_from_degree(double degree)
+{
+	double	radian;
 
-double	get_radian_from_degree(double degree);
-
-#endif
+	radian = degree / 360 * 2 * M_PI;
+	return (radian);
+}

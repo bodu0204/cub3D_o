@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:43:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 21:22:08 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/08 22:25:01 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,19 @@ typedef struct s_img {
 	int		endian;
 }	t_img;
 
+typedef struct s_pos
+{
+	double	x;
+	double	y;
+}	t_pos;
+
 typedef struct s_info
 {
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	t_pos	player;
+	double	direction;
 }	t_info;
 
 #endif
