@@ -15,15 +15,15 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
-	$(MAKE) -C ./minilibx-linux
-	$(CC) $(OBJS) libft/libft.a $(LDFLAGS) minilibx-linux/libmlx_Darwin.a -o $(NAME)
+	$(MAKE) -C ./mlx-linux
+	$(CC) $(OBJS) libft/libft.a $(LDFLAGS) mlx-linux/libmlx_Darwin.a -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -rf $(OBJDIR)
-	$(MAKE) clean -C ./minilibx-linux
+	$(MAKE) clean -C ./mlx-linux
 	$(MAKE) fclean -C ./libft
 
 fclean: clean
