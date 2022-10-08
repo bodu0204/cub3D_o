@@ -6,11 +6,16 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 23:25:14 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/08 23:49:00 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/raycasting.h"
+
+int	check_wall(t_pos intersection, double angle)
+{
+	return (0);
+}
 
 t_pos	check_horizontal_intersection(t_info *info, double angle)
 {
@@ -22,7 +27,6 @@ t_pos	check_horizontal_intersection(t_info *info, double angle)
 	ray.y = ceil(info->player.y);
 	while (true)
 	{
-		//printf("(x, y) = (%f, %f)\n", ray.x, ray.y);
 		ray.x = ray.x + 1 / tan(angle);
 		ray.y = ray.y + 1;
 		if (true) //function
@@ -78,7 +82,8 @@ int	main(void)
 
 	info.player.x = 4.3;
 	info.player.y = 4.3;
-	check_intersection(&info, get_radian_from_degree(145));
-	//check_horizontal_intersection(&info, get_radian_from_degree(170));
+	//check_intersection(&info, get_radian_from_degree(145));
+	check_horizontal_intersection(&info, get_radian_from_degree(30));
 	//check_vertical_intersection(&info, get_radian_from_degree(40));
+	return (0);
 }
