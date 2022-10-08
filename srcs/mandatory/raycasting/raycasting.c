@@ -6,15 +6,28 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 23:49:00 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 01:05:53 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/raycasting.h"
 
-int	check_wall(t_pos intersection, double angle)
+int	check_wall(t_pos intersection, double angle, int direction)
 {
-	return (0);
+	int	block;
+
+	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
+		block = map(round(intersection.x), floor(intersection.y), NULL);
+	else if (direction == HORIZONTAL && M_PI <= angle && angle < 2 * M_PI)
+		block = map(round(intersection.x - 1), floor(intersection.y), NULL);
+	else if (direction == VERTICAL && ((0 <= angle && angle < M_PI_2)
+			|| (3 * M_PI_2 <= angle && angle < 2 * M_PI)))
+		block = map(floor(intersection.x), round(intersection.y), NULL);
+	else if (direction == VERTICAL && M_PI_2 <= angle && angle < 3 * M_PI_2)
+		block = map(floor(intersection.x), round(intersection.y - 1), NULL);
+	else
+		block = NONE;
+	return (block);
 }
 
 t_pos	check_horizontal_intersection(t_info *info, double angle)
