@@ -6,11 +6,11 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:41:27 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 20:42:31 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/08 21:26:12 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../../../includes/cub3D.h"
+#include	"../../../includes/map.h"
 
 int	map(size_t x, size_t y, char *file)
 {
