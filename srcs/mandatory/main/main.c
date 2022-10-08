@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:49:54 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 17:50:39 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/08 18:17:59 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3D.h"
+#include	"../../../includes/cub3D.h"
 
 int	main(void)
 {

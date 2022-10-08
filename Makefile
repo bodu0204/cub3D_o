@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -Wshadow -Imlx
-SRCS_NAME = srcs/mandatory/main/main.c
+SRCS_NAME = mandatory/main/main.c
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))

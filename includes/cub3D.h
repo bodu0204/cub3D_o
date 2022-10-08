@@ -11,7 +11,8 @@ enum
 {
 	BLOCK, 
 	SPACE, 
-	NONE
+	NONE, 
+	MAP_ERROR
 };
 
 int map(size_t, size_t, char *);
