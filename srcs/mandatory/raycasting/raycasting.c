@@ -6,8 +6,10 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 17:45:37 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/08 20:28:59 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include	"../../../includes/raycasting.h"
 
 

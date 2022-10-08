@@ -1,33 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 21:19:12 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/08 20:43:22 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/08 21:22:08 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef STRUCTURE_H
+# define STRUCTURE_H
 
-# include	<stdlib.h>
-# include	<stdio.h>
-# include	<fcntl.h>
-# include	"structure.h"
-# include	"../mlx-linux/mlx.h"
+# define ESC 65307
+# define LEFT 65361
+# define RIGHT 65363
+# define W 119
+# define A 97
+# define S 115
+# define D 100
 
-# define BL 30
-# define DIS_X 300
-# define DIS_Y 180
+typedef enum e_block
+{
+	BLOCK,
+	SPACE,
+	NONE,
+	MAP_ERROR,
+	FREE_MAP = 0xff
+}	t_block;
 
-# define ON_KEYDOWN 2
-# define ON_DESTROY 17
+typedef struct s_img {
+	void	*address;
+	char	*data;
+	int		size_l;
+	int		bpp;
+	int		endian;
+}	t_img;
 
-int	close_window(t_info *info);
-int	handle_key_input(int keycode, t_info *info);
-int	map(size_t, size_t, char *);
+typedef struct s_info
+{
+	void	*mlx;
+	void	*win;
+	t_img	img;
+}	t_info;
 
 #endif
