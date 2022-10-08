@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LDFLAGS = -Wshadow -Imlx
+LDFLAGS = -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 SRCS_NAME = mandatory/main/main.c
 SRCDIR = srcs
 OBJDIR = objs
@@ -15,15 +15,15 @@ $(OBJDIR):
 
 $(NAME): $(OBJS)
 	$(MAKE) -C libft
-	$(MAKE) -C ./minilibx_mms_20200219
-	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJS) libft/libft.a minilibx_mms_20200219/libmlx.dylib -o $(NAME)
+	$(MAKE) -C ./minilibx-linux
+	$(CC) $(OBJS) libft/libft.a $(LDFLAGS) minilibx-linux/libmlx_Darwin.a -o $(NAME)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	rm -rf $(OBJDIR)
-	$(MAKE) clean -C ./minilibx_mms_20200219
+	$(MAKE) clean -C ./minilibx-linux
 	$(MAKE) fclean -C ./libft
 
 fclean: clean
