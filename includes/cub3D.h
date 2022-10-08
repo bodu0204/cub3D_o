@@ -2,6 +2,7 @@
 # define CLB_3D_H
 
 #include <stdlib.h>
+#include <fcntl.h>
 
 # define BL 30
 # define DIS_X 180
@@ -12,7 +13,8 @@ enum
 	BLOCK, 
 	SPACE, 
 	NONE, 
-	MAP_ERROR
+	MAP_ERROR, 
+	FREE_MAP = 0xff
 };
 
 int map(size_t, size_t, char *);
