@@ -1,15 +1,8 @@
 #include	"../../../includes/cub3D.h"
-#include	"../../../includes/structure.h"
+#include	"../../../includes/setting.h"
 #include	"../../../libft/libft.h"
 
 #include "debug.h"
-
-char	*skip_map(char *file);
-int	check_map_char(char *file);
-int set_map_size(char *file, size_t *x, size_t *y);
-int set_map_size(char *file, size_t *x, size_t *y);
-void	set_map(unsigned char	*map, char *file, size_t x);
-int check_map_shape(unsigned char	*map, size_t x, size_t y);
 
 unsigned char *mk_map(char *file, size_t *x, size_t *y)
 {

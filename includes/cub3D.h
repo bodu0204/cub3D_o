@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 10:00:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 10:56:37 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@
 # include	"raycasting.h"
 
 # define BL 30
-# define DIS_X 300
-# define DIS_Y 180
+# define DIS_X 1200
+# define DIS_Y 900
+
+# define MINI_MAP 300
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17

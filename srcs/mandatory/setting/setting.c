@@ -1,16 +1,20 @@
 #include	"../../../includes/cub3D.h"
 #include	"../../../includes/setting.h"
 #include	"../../../libft/libft.h"
-char	*read_file(char *filename);
-char *reading_file(int fd, size_t B);
 
-int setting(char *filename)
+#include "debug.h"
+
+int setting(char *filename, t_info *i)
 {
 	char	*file;
 
 	file = read_file(filename);
 	if (!file || map(0, 0, file) == MAP_ERROR)
 		return (1);
+	set_human(i, skip_map(file));
+TESTd(i->player.x)
+TESTd(i->player.y)
+TESTd(i->direction)
 	return (0);
 }
 
@@ -49,7 +53,7 @@ char *reading_file(int fd, size_t B)
 }
 
 /////////////////////////////////////////////////////test
-/* 
+/*  */
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;
@@ -84,7 +88,8 @@ int	main(int argc, char *argv[])
 		printf("set arg!\n");
 		return (0);
 	}
-	if (serring(argv[1]))
+	t_info i;
+	if (setting(argv[1], &i))
 	{
 		printf("can't set!\n");
 		return (0);
@@ -116,4 +121,3 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 	
- */
