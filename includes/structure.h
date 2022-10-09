@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:43:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 09:46:26 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 15:25:53 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ typedef struct s_pos
 	double	x;
 	double	y;
 }	t_pos;
+
+typedef struct s_coordinate
+{
+	int x;
+	int y;
+}	t_coor;
 
 typedef struct s_info
 {

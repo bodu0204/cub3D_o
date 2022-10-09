@@ -3,6 +3,7 @@
         "fcntl.h": "c",
         "libft.h": "c",
         "structure.h": "c",
-        "setting.h": "c"
+        "setting.h": "c",
+        "cub3d.h": "c"
     }
 }

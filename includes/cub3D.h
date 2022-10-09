@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 10:56:37 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/09 15:22:54 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@
 # define DIS_Y 900
 
 # define MINI_MAP 300
+# define MINI_MAP_BL 30
 
 # define ON_KEYDOWN 2
 # define ON_DESTROY 17
 
 int	close_window(t_info *info);
 int	handle_key_input(int keycode, t_info *info);
+int	map(size_t, size_t, char *);
 
 #endif
