@@ -49,7 +49,7 @@ char *reading_file(int fd, size_t B)
 }
 
 /////////////////////////////////////////////////////test
-
+/* 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
 	size_t	i;
@@ -116,3 +116,4 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 	
+ */
