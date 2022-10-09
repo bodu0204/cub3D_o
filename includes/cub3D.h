@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 08:52:28 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/09 10:00:21 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@
 # include	<stdio.h>
 # include	<fcntl.h>
 # include	<unistd.h>
-# include	"structure.h"
 # include	"../mlx-linux/mlx.h"
+# include	"structure.h"
+# include	"setting.h"
+# include	"map.h"
+# include	"raycasting.h"
 
 # define BL 30
 # define DIS_X 300
@@ -29,6 +32,5 @@
 
 int	close_window(t_info *info);
 int	handle_key_input(int keycode, t_info *info);
-int	map(size_t, size_t, char *);
 
 #endif

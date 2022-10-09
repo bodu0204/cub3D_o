@@ -3,4 +3,6 @@
 
 #define BUFFERSIZE 1024
 
+int setting(char *filename);
+
 #endif

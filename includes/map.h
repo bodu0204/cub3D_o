@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 21:25:48 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 21:26:51 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 10:00:07 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,7 @@
 # include	<stdio.h>
 # include	<fcntl.h>
 # include	"structure.h"
+
+int	map(size_t, size_t, char *);
 
 #endif

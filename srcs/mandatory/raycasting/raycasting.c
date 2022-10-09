@@ -6,20 +6,26 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 01:05:53 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 10:47:45 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/raycasting.h"
 
-int	check_wall(t_pos intersection, double angle, int direction)
+int	check_block(t_pos intersection, double angle, int direction)
 {
 	int	block;
 
 	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
+	{
 		block = map(round(intersection.x), floor(intersection.y), NULL);
+		//printf("(%f, %f)\n", round(intersection.x), floor(intersection.y));
+	}
 	else if (direction == HORIZONTAL && M_PI <= angle && angle < 2 * M_PI)
+	{
 		block = map(round(intersection.x - 1), floor(intersection.y), NULL);
+		//printf("(%f, %f)\n", round(intersection.x - 1), floor(intersection.y));
+	}
 	else if (direction == VERTICAL && ((0 <= angle && angle < M_PI_2)
 			|| (3 * M_PI_2 <= angle && angle < 2 * M_PI)))
 		block = map(floor(intersection.x), round(intersection.y), NULL);
@@ -34,15 +40,20 @@ t_pos	check_horizontal_intersection(t_info *info, double angle)
 {
 	t_pos	ray;
 	double	dy;
+	int		block;
 
 	dy = ceil(info->player.y) - info->player.y;
 	ray.x = info->player.x + dy / tan(angle);
 	ray.y = ceil(info->player.y);
+	//printf("(%f, %f)\n", ray.x, ray.y);
 	while (true)
 	{
 		ray.x = ray.x + 1 / tan(angle);
 		ray.y = ray.y + 1;
-		if (true) //function
+		//printf("(%f, %f)\n", ray.x, ray.y);
+		block = check_block(ray, angle, HORIZONTAL);
+		//printf("%d\n", block);
+		if (block == BLOCK || block == NONE || block == MAP_ERROR) //function
 			break ;
 	}
 	return (ray);
@@ -52,6 +63,7 @@ t_pos	check_vertical_intersection(t_info *info, double angle)
 {
 	t_pos	ray;
 	double	dx;
+	int		block;
 
 	dx = ceil(info->player.x) - info->player.x;
 	ray.x = ceil(info->player.x);
@@ -60,7 +72,8 @@ t_pos	check_vertical_intersection(t_info *info, double angle)
 	{
 		ray.x = ray.x + 1;
 		ray.y = ray.y + tan(angle);
-		if (true) //function
+		block = check_block(ray, angle, VERTICAL);
+		if (block == BLOCK || block == NONE || block == MAP_ERROR) //function
 			break ;
 	}
 	return (ray);
@@ -89,14 +102,14 @@ t_pos	check_intersection(t_info *info, double angle)
 		return (vertical_intersection);
 }
 
-int	main(void)
-{
-	t_info	info;
+//int	main(void)
+//{
+//	t_info	info;
 
-	info.player.x = 4.3;
-	info.player.y = 4.3;
-	//check_intersection(&info, get_radian_from_degree(145));
-	check_horizontal_intersection(&info, get_radian_from_degree(30));
-	//check_vertical_intersection(&info, get_radian_from_degree(40));
-	return (0);
-}
+//	info.player.x = 4.3;
+//	info.player.y = 4.3;
+//	//check_intersection(&info, get_radian_from_degree(145));
+//	check_horizontal_intersection(&info, get_radian_from_degree(30));
+//	//check_vertical_intersection(&info, get_radian_from_degree(40));
+//	return (0);
+//}

@@ -6,7 +6,7 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:43:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 22:25:01 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 09:46:26 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 # define A 97
 # define S 115
 # define D 100
+
+typedef enum e_direction
+{
+	VERTICAL,
+	HORIZONTAL
+}	t_direction;
 
 typedef enum e_block
 {

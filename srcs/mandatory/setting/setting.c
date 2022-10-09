@@ -4,7 +4,7 @@
 char	*read_file(char *filename);
 char *reading_file(int fd, size_t B);
 
-int serring(char *filename)
+int setting(char *filename)
 {
 	char	*file;
 
