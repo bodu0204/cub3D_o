@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/08 21:25:21 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 08:52:28 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include	<stdlib.h>
 # include	<stdio.h>
 # include	<fcntl.h>
+# include	<unistd.h>
 # include	"structure.h"
 # include	"../mlx-linux/mlx.h"
 
