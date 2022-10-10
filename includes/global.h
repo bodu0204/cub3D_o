@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   global.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/10 00:14:21 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/08 21:25:48 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/10 22:17:43 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef GLOBAL_H
+# define GLOBAL_H
 
 # include	<stdlib.h>
 # include	<stdio.h>
 # include	<fcntl.h>
-# include	<unistd.h>
-# include	"../mlx-linux/mlx.h"
+# include	"../libft/libft.h"
 # include	"structure.h"
+# include	"cub3D.h"
 # include	"setting.h"
-# include	"global.h"
-# include	"raycasting.h"
-# include	"plot.h"
 
-# define ON_KEYDOWN 2
-# define ON_DESTROY 17
+# define BITS_PER_PIXEL 0
+# define SIZE_LINE 1
+# define ENDIAN 2
 
-int	close_window(t_info *info);
-int	handle_key_input(int keycode, t_info *info);
+int				map(size_t x, size_t y, char *file);
+int				img(unsigned int *dest, t_direction d, size_t col, void *img_data);
+unsigned int	flooring(unsigned int set);
+unsigned int	ceiling(unsigned int set);
 
 #endif

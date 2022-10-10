@@ -3,11 +3,19 @@ CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/usr/X11R6/lib -lX11 -lXext -framework OpenGL -framework AppKit
 SRCS_NAME = mandatory/main/main.c \
 	mandatory/main/setup.c \
-	mandatory/map/map.c \
+	mandatory/global/map.c \
+	mandatory/global/img.c \
+	mandatory/global/ceiling.c \
+	mandatory/global/flooring.c \
 	mandatory/raycasting/calculate.c \
 	mandatory/raycasting/raycasting.c \
 	mandatory/setting/mk_map.c \
-	mandatory/setting/setting.c
+	mandatory/setting/mk_img.c \
+	mandatory/setting/setting.c \
+	mandatory/setting/set_human.c \
+	mandatory/setting/set_imgs.c \
+	mandatory/plot/plot.c \
+	mandatory/plot/pixel_put.c
 SRCDIR = srcs
 OBJDIR = objs
 SRCS = $(addprefix $(SRCDIR)/, $(SRCS_NAME))

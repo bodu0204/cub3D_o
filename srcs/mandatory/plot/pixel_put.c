@@ -1,33 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.h                                            :+:      :+:    :+:   */
+/*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 20:45:04 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/10 00:14:21 by yahokari         ###   ########.fr       */
+/*   Created: 2022/10/10 00:06:31 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/10 03:41:50 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#include	"../../../includes/plot.h"
 
-# include	<stdlib.h>
-# include	<stdio.h>
-# include	<fcntl.h>
-# include	<unistd.h>
-# include	"../mlx-linux/mlx.h"
-# include	"structure.h"
-# include	"setting.h"
-# include	"global.h"
-# include	"raycasting.h"
-# include	"plot.h"
+void	my_pixel_put(t_info *info, int x, int y, unsigned int color)
+{
+	void	*dst;
 
-# define ON_KEYDOWN 2
-# define ON_DESTROY 17
-
-int	close_window(t_info *info);
-int	handle_key_input(int keycode, t_info *info);
-
-#endif
+	dst = info->img.data + (y * info->img.size_l + x * (info->img.bpp / 8));
+	*(unsigned int *)dst = color;
+}

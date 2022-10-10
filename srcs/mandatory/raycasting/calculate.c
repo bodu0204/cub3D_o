@@ -6,19 +6,32 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 22:31:59 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 10:46:59 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/09 20:08:15 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/raycasting.h"
 
-double	get_radian_from_degree(double degree)
+double	convert_to_radian(double degree)
 {
 	double	radian;
 
-	if (degree < 0 || 360 <= degree)
+	degree = fmod(degree, 360);
+	if (degree < 0)
+		degree = fmod(fmod(degree, 360) + 360, 360);
+	else if (degree >= 360)
 		degree = fmod(degree, 360);
 	radian = degree / 360 * 2 * M_PI;
-	//printf("%f, %f\n", degree, radian);
 	return (radian);
+}
+
+double	calculate_distance(t_info *info, t_pos wall)
+{
+	double	distance;
+	double	direction_rad;
+
+	direction_rad = convert_to_radian(info->direction);
+	distance = (wall.x - info->player.x) * cos(direction_rad)
+		+ (wall.y - info->player.y) * sin(direction_rad);
+	return (distance);
 }

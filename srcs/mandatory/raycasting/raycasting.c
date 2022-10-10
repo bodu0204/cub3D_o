@@ -6,34 +6,62 @@
 /*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 10:47:45 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/10 03:46:42 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../../includes/raycasting.h"
 
+t_pos	find_block_pos(t_pos intersection, double angle, int direction)
+{
+	t_pos	block;
+
+	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
+	{
+		block.x = floor(intersection.x);
+		block.y = round(intersection.y);
+	}
+	else if (direction == HORIZONTAL && M_PI <= angle && angle < 2 * M_PI)
+	{
+		block.x = floor(intersection.x);
+		block.y = round(intersection.y - 1);
+	}
+	else if (direction == VERTICAL && ((0 <= angle && angle < M_PI_2)
+			|| (3 * M_PI_2 <= angle && angle < 2 * M_PI)))
+	{
+		block.x = round(intersection.x);
+		block.y = floor(intersection.y);
+	}
+	else
+	{
+		block.x = round(intersection.x - 1);
+		block.y = floor(intersection.y);
+	}
+	return (block);
+}
+
 int	check_block(t_pos intersection, double angle, int direction)
 {
 	int	block;
 
+	if (intersection.x < 0 || intersection.y < 0)
+		return (MAP_ERROR);
+	intersection = find_block_pos(intersection, angle, direction);
+	block = map(intersection.x, intersection.y, NULL);
+	return (block);
+}
+
+int	get_sign(double angle, int direction)
+{
 	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
-	{
-		block = map(round(intersection.x), floor(intersection.y), NULL);
-		//printf("(%f, %f)\n", round(intersection.x), floor(intersection.y));
-	}
+		return (1);
 	else if (direction == HORIZONTAL && M_PI <= angle && angle < 2 * M_PI)
-	{
-		block = map(round(intersection.x - 1), floor(intersection.y), NULL);
-		//printf("(%f, %f)\n", round(intersection.x - 1), floor(intersection.y));
-	}
+		return (-1);
 	else if (direction == VERTICAL && ((0 <= angle && angle < M_PI_2)
 			|| (3 * M_PI_2 <= angle && angle < 2 * M_PI)))
-		block = map(floor(intersection.x), round(intersection.y), NULL);
-	else if (direction == VERTICAL && M_PI_2 <= angle && angle < 3 * M_PI_2)
-		block = map(floor(intersection.x), round(intersection.y - 1), NULL);
+		return (1);
 	else
-		block = NONE;
-	return (block);
+		return (-1);
 }
 
 t_pos	check_horizontal_intersection(t_info *info, double angle)
@@ -41,20 +69,22 @@ t_pos	check_horizontal_intersection(t_info *info, double angle)
 	t_pos	ray;
 	double	dy;
 	int		block;
+	int		sign;
 
-	dy = ceil(info->player.y) - info->player.y;
+	if (M_PI <= angle && angle < M_PI * 2)
+		dy = floor(info->player.y) - info->player.y;
+	else
+		dy = ceil(info->player.y) - info->player.y;
+	sign = get_sign(angle, HORIZONTAL);
 	ray.x = info->player.x + dy / tan(angle);
-	ray.y = ceil(info->player.y);
-	//printf("(%f, %f)\n", ray.x, ray.y);
+	ray.y = info->player.y + dy;
 	while (true)
 	{
-		ray.x = ray.x + 1 / tan(angle);
-		ray.y = ray.y + 1;
-		//printf("(%f, %f)\n", ray.x, ray.y);
 		block = check_block(ray, angle, HORIZONTAL);
-		//printf("%d\n", block);
-		if (block == BLOCK || block == NONE || block == MAP_ERROR) //function
+		if (block == BLOCK || block == NONE || block == MAP_ERROR)
 			break ;
+		ray.x = ray.x + sign * 1 / tan(angle);
+		ray.y = ray.y + sign;
 	}
 	return (ray);
 }
@@ -64,52 +94,71 @@ t_pos	check_vertical_intersection(t_info *info, double angle)
 	t_pos	ray;
 	double	dx;
 	int		block;
+	int		sign;
 
-	dx = ceil(info->player.x) - info->player.x;
-	ray.x = ceil(info->player.x);
+	if (M_PI_2 <= angle && angle < M_PI_2 * 3)
+		dx = floor(info->player.x) - info->player.x;
+	else
+		dx = ceil(info->player.x) - info->player.x;
+	sign = get_sign(angle, VERTICAL);
+	ray.x = info->player.x + dx;
 	ray.y = info->player.y + dx * tan(angle);
 	while (true)
 	{
-		ray.x = ray.x + 1;
-		ray.y = ray.y + tan(angle);
 		block = check_block(ray, angle, VERTICAL);
-		if (block == BLOCK || block == NONE || block == MAP_ERROR) //function
+		if (block == BLOCK || block == NONE || block == MAP_ERROR)
 			break ;
+		ray.x = ray.x + sign;
+		ray.y = ray.y + sign * tan(angle);
 	}
 	return (ray);
 }
 
-double	calculate_distance(t_pos player, t_pos wall)
+void	input_data(t_intersection *intersec, double angle, int direction, t_pos pos)
 {
-	double	distance;
-
-	distance = sqrt(pow(wall.x - player.x, 2) + pow(wall.y - player.y, 2));
-	return (distance);
-}
-
-t_pos	check_intersection(t_info *info, double angle)
-{
-	t_pos	horizontal_intersection;
-	t_pos	vertical_intersection;
-
-	horizontal_intersection = check_horizontal_intersection(info, angle);
-	//printf("(x, y) = (%f, %f)\n", horizontal_intersection.x, horizontal_intersection.y);
-	vertical_intersection = check_vertical_intersection(info, angle);
-	if (fabs(horizontal_intersection.x - info->player.x)
-		< fabs(vertical_intersection.x - info->player.x))
-		return (horizontal_intersection);
+	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
+	{
+		intersec->wall_direction = NORTH;
+		intersec->img_col = (floor(pos.x + 1) - pos.x) * (BL - 1);
+	}
+	else if (direction == HORIZONTAL && M_PI <= angle && angle < 2 * M_PI)
+	{
+		intersec->wall_direction = SOUTH;
+		intersec->img_col = (pos.x - floor(pos.x)) * (BL - 1);
+	}
+	else if (direction == VERTICAL && ((0 <= angle && angle < M_PI_2)
+			|| (3 * M_PI_2 <= angle && angle < 2 * M_PI)))
+	{
+		intersec->wall_direction = WEST;
+		intersec->img_col = (pos.y - floor(pos.y)) * (BL - 1);
+	}
 	else
-		return (vertical_intersection);
+	{
+		intersec->wall_direction = EAST;
+		intersec->img_col = (floor(pos.y + 1) - pos.y) * (BL - 1);
+	}
 }
 
-//int	main(void)
-//{
-//	t_info	info;
+t_intersection	check_intersection(t_info *info, double angle)
+{
+	t_intersection	intersec;
+	t_pos			hori_intersec;
+	t_pos			vert_intersec;
 
-//	info.player.x = 4.3;
-//	info.player.y = 4.3;
-//	//check_intersection(&info, get_radian_from_degree(145));
-//	check_horizontal_intersection(&info, get_radian_from_degree(30));
-//	//check_vertical_intersection(&info, get_radian_from_degree(40));
-//	return (0);
-//}
+	hori_intersec = check_horizontal_intersection(info, angle);
+	vert_intersec = check_vertical_intersection(info, angle);
+	if (fabs(hori_intersec.x - info->player.x)
+		< fabs(vert_intersec.x - info->player.x))
+	{
+		intersec.distance = calculate_distance(info, hori_intersec);
+		intersec.wall = hori_intersec;
+		input_data(&intersec, angle, HORIZONTAL, hori_intersec);
+	}
+	else
+	{
+		intersec.distance = calculate_distance(info, vert_intersec);
+		intersec.wall = vert_intersec;
+		input_data(&intersec, angle, VERTICAL, vert_intersec);
+	}
+	return (intersec);
+}

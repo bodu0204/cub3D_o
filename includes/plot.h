@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   plot.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 21:25:48 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 14:47:27 by blyu             ###   ########.fr       */
+/*   Created: 2022/10/10 00:05:35 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/10 11:50:05 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#ifndef PLOT_H
+# define PLOT_H
 
-# include	<stdlib.h>
-# include	<stdio.h>
-# include	<fcntl.h>
+# include	"../mlx-linux/mlx.h"
 # include	"structure.h"
+# include	"raycasting.h"
+# include	"global.h"
 
-unsigned char *mk_map(char *file, size_t *x, size_t *y);
+void	my_pixel_put(t_info *info, int x, int y, unsigned int color);
+void	plot_screen(t_info *info);
 
 #endif

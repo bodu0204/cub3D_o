@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 20:43:22 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 15:25:53 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/10 00:20:07 by yahokari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURE_H
 # define STRUCTURE_H
+
+# include	"stdio.h"
 
 # define ESC 65307
 # define LEFT 65361
@@ -21,10 +23,28 @@
 # define S 115
 # define D 100
 
-typedef enum e_direction
+# define BL 30
+# define DIS_X 1200
+# define DIS_Y 900
+# define SIGHT 60
+
+# define MINI_MAP 300
+# define MINI_MAP_BL 30
+
+# define FREE_CONTENT (void *)0xff
+
+typedef enum e_dimention
 {
 	VERTICAL,
 	HORIZONTAL
+}	t_dimention;
+
+typedef enum e_direction
+{
+	NORTH,
+	EAST,
+	SOUTH,
+	WEST,
 }	t_direction;
 
 typedef enum e_block
@@ -33,7 +53,6 @@ typedef enum e_block
 	SPACE,
 	NONE,
 	MAP_ERROR,
-	FREE_MAP = 0xff
 }	t_block;
 
 typedef struct s_img {
@@ -50,12 +69,6 @@ typedef struct s_pos
 	double	y;
 }	t_pos;
 
-typedef struct s_coordinate
-{
-	int x;
-	int y;
-}	t_coor;
-
 typedef struct s_info
 {
 	void	*mlx;
@@ -64,5 +77,13 @@ typedef struct s_info
 	t_pos	player;
 	double	direction;
 }	t_info;
+
+typedef struct s_intersection
+{
+	t_pos		wall;
+	size_t		img_col;
+	t_direction	wall_direction;
+	double		distance;
+}	t_intersection;
 
 #endif

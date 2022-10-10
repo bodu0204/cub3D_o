@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting.h                                       :+:      :+:    :+:   */
+/*   img.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/08 20:23:49 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/09 20:50:39 by blyu             ###   ########.fr       */
+/*   Created: 2022/10/10 11:55:56 by yahokari          #+#    #+#             */
+/*   Updated: 2022/10/10 22:15:15 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYCASTING_H
-# define RAYCASTING_H
+#include "../../../includes/global.h"
 
-# include	<math.h>
-# include	<stdbool.h>
-# include	<stdio.h>
-# include	"structure.h"
-# include	"global.h"
+int	img(unsigned int *dest, t_direction d, size_t col, void *img_data)
+{
+	static unsigned int	imgs[4 * BL * BL];
+	size_t				i;
+	size_t				b;
 
-t_intersection	check_intersection(t_info *info, double angle);
-double			convert_to_radian(double degree);
-double			calculate_distance(t_info *info, t_pos wall);
-
-#endif
+	if (img_data && mk_img(img_data, imgs + (d * BL * BL)))
+		return (1);
+	i = 0;
+	b = (d * BL * BL) + (col * BL);
+	if (dest)
+	{
+		while (i < BL)
+		{
+			dest[i] = imgs[b + i];
+			i++;
+		}
+	}
+	return (0);
+}
