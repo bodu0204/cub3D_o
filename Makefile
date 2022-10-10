@@ -9,11 +9,14 @@ SRCS_NAME = mandatory/main/main.c \
 	mandatory/global/flooring.c \
 	mandatory/raycasting/calculate.c \
 	mandatory/raycasting/raycasting.c \
+	mandatory/raycasting/raycasting_utils.c \
 	mandatory/setting/mk_map.c \
+	mandatory/setting/mk_map_utils.c \
 	mandatory/setting/mk_img.c \
 	mandatory/setting/setting.c \
 	mandatory/setting/set_human.c \
 	mandatory/setting/set_imgs.c \
+	mandatory/setting/set_imgs_utils.c \
 	mandatory/plot/plot.c \
 	mandatory/plot/pixel_put.c
 SRCDIR = srcs

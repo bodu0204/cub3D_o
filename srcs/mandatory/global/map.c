@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/11 02:42:18 by blyu              #+#    #+#             */
+/*   Updated: 2022/10/11 02:42:19 by blyu             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include	"../../../includes/global.h"
 
-int map(size_t x, size_t y, char *file)
+int	map(size_t x, size_t y, char *file)
 {
 	static unsigned char	*cube_map;
 	static size_t			m_x;
