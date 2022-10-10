@@ -1,8 +1,8 @@
 unsigned int flooring(unsigned int set)
 {
-    static unsigned int clor;
+	static unsigned int	clor;
 
-    if (set)
-        clor = set;
-    return (clor);
+	if (set)
+		clor = set;
+	return (clor);
 }

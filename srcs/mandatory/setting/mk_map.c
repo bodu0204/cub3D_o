@@ -6,15 +6,13 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:51:57 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/10 22:19:46 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/11 00:57:10 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/setting.h"
 
-#include "debug.h"
-
-unsigned char *mk_map(char *file, size_t *x, size_t *y)
+unsigned char	*mk_map(char *file, size_t *x, size_t *y)
 {
 	unsigned char	*r;
 
@@ -61,7 +59,7 @@ char	*skip_map(char *file)
 
 int	check_map_char(char *file)
 {
-	int h;
+	int	h;
 
 	h = 0;
 	while (*file \
@@ -83,9 +81,9 @@ int	check_map_char(char *file)
 	return (0);
 }
 
-int set_map_size(char *file, size_t *x, size_t *y)
+int	set_map_size(char *file, size_t *x, size_t *y)
 {
-	size_t l;
+	size_t	l;
 
 	*x = 0;
 	*y = 0;
@@ -106,12 +104,12 @@ int set_map_size(char *file, size_t *x, size_t *y)
 
 void	set_map(unsigned char	*map, char *file, size_t x)
 {
-	size_t l;
+	size_t	l;
 
 	while (*file)
 	{
 		l = 0;
-		while (file[l]  && file[l] != '\n')
+		while (file[l] && file[l] != '\n')
 		{
 			if (file[l] == ' ')
 				map[l] = NONE;
@@ -133,7 +131,7 @@ void	set_map(unsigned char	*map, char *file, size_t x)
 	return ;
 }
 
-int check_map_shape(unsigned char	*map, size_t x, size_t y)
+int	check_map_shape(unsigned char	*map, size_t x, size_t y)
 {
 	size_t	i;
 
@@ -143,11 +141,9 @@ int check_map_shape(unsigned char	*map, size_t x, size_t y)
 		if (map[i] == SPACE \
 		&& (!(i / x) || !(i % x) || i / x == y - 1 || i % x == x - 1 \
 			|| map[i + 1] == NONE || map[i - 1] == NONE \
-			|| map[i + x] == NONE || map[i - x] == NONE ))
+			|| map[i + x] == NONE || map[i - x] == NONE))
 			return (1);
 		i++;
 	}
 	return (0);
 }
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahokari <yahokari@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 17:44:58 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/10 03:46:42 by yahokari         ###   ########.fr       */
+/*   Updated: 2022/10/10 23:32:32 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ t_pos	check_vertical_intersection(t_info *info, double angle)
 	return (ray);
 }
 
-void	input_data(t_intersection *intersec, double angle, int direction, t_pos pos)
+void	input_data(t_intersection *intersec, \
+double angle, int direction, t_pos pos)
 {
 	if (direction == HORIZONTAL && 0 <= angle && angle < M_PI)
 	{
