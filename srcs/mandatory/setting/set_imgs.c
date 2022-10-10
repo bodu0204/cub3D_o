@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:51:13 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/11 00:57:27 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/11 01:12:58 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ size_t	set_fc_elm(char *file, unsigned int *f)
 	i = 0;
 	while (file[i] && file[i] != '\n')
 		i++;
-	if (!file[i])
-		return (0);
-	return (i + 1);//line
+	return ((!(!file[i])) * (i + 1));
 }
 
 unsigned int	str_to_rgb(char *str, unsigned int *f)

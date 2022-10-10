@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 00:08:28 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/10 23:34:48 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/11 01:07:19 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ t_intersection *intersec, double height)
 	{
 		if (wall_top <= i && i <= wall_bottom)
 			my_pixel_put(info, col, i, \
-			data[(int)((BL - 1) * (double)(i - wall_top) / (wall_bottom - wall_top))]);
+			data[(int)((BL - 1) * \
+			(double)(i - wall_top) / (wall_bottom - wall_top))]);
 		else if (i < wall_top)
 			my_pixel_put(info, col, i, flooring(0));
 		else

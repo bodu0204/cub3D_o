@@ -1,4 +1,4 @@
-unsigned int flooring(unsigned int set)
+unsigned int	flooring(unsigned int set)
 {
 	static unsigned int	clor;
 

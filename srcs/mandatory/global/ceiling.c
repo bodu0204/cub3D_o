@@ -1,4 +1,4 @@
-unsigned int ceiling(unsigned int set)
+unsigned int	ceiling(unsigned int set)
 {
 	static unsigned int	clor;
 

@@ -6,22 +6,22 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:51:47 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/11 00:51:50 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/11 01:14:05 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/setting.h"
 
-void    set_human(t_info *i, char *mapf)
+void	set_human(t_info *i, char *mapf)
 {
-	size_t x;
-	size_t y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	while (*mapf)
 	{
 		x = 0;
-		while (*mapf  && *mapf != '\n')
+		while (*mapf && *mapf != '\n')
 		{
 			if (*mapf == 'N' || *mapf == 'S' || *mapf == 'E' || *mapf == 'W')
 			{
