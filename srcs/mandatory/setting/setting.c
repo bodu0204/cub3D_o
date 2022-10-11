@@ -6,7 +6,7 @@
 /*   By: blyu <blyu@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 11:51:36 by yahokari          #+#    #+#             */
-/*   Updated: 2022/10/11 00:54:55 by blyu             ###   ########.fr       */
+/*   Updated: 2022/10/11 19:12:28 by blyu             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	setting(char *filename, t_info *i)
 {
 	char	*file;
 
+	if (ft_memcmp(filename + ft_strlen(filename) - 4, ".cub", 4))
+		return (1);
 	file = read_file(filename);
 	if (!file || set_imgs(file, i) || map(0, 0, file) == MAP_ERROR)
 		return (1);
