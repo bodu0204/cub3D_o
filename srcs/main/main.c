@@ -8,7 +8,7 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		return(printf("Error\n") * 0 + 1);
 	mlx(mlx_init());
-	win(mlx_new_window(mlx(0), DIS_X, DIS_Y, "cub3d"));
+	win(mlx_new_window(mlx(0), DIS_W, DIS_H, "cub3d"));
 	if (setting(argv[1]))
 		return (1);
 	mlx_loop_hook(mlx(0), cub3d, NULL);
@@ -21,20 +21,21 @@ int	main(int argc, char *argv[])
 
 int		cub3d(void	*p)
 {
-	t_now n;
-
-	n = now(0);
-	move(&n);
+	move();
 	cast();
 	return (0);
 }
 
+
+
 void move1(t_now *n);
 
-void move(t_now *n)
+void move()
 {
 	double ra;
+	t_now n;
 
+	n = now(0);
 	if (key(0) & GO_ == GO_F)
 		ra = 0;
 	else if (key(0) & GO_ == GO_L)
@@ -45,10 +46,10 @@ void move(t_now *n)
 		ra = 1.5;
 	if (key(0) & GO_ != GO_NONE)
 	{
-		n->x -= sin((n->r + ra) * M_PI);
-		n->y += cos((n->r + ra) * M_PI);
+		n.x -= sin((n.r + ra) * M_PI);
+		n.y += cos((n.r + ra) * M_PI);
 	}
-	move1(n);
+	move1(&n);
 }
 
 void move1(t_now *n)
@@ -57,7 +58,42 @@ void move1(t_now *n)
 		n->r += TRN_LEN;
 	else if (key(0) & TRN_ == TRN_R)
 		n->r -= TRN_LEN;
-	now(n);
+	if (n->r >= 2.0)
+		n->r -= 2.0;
+	else if(n->r < 0.0)
+		n->r += 2.0;
+	*n = now(n);
+}
+
+void cast()
+{
+	size_t i;
+	t_now n;
+	t_line	l;
+
+	n = now(0);
+	n.r += SEE / 2;
+	if (n.r)
+	while (i < DIS_W)
+	{
+		if (n.r >= 2.0)
+			n.r -= 2.0;
+		else if(n.r < 0.0)
+			n.r += 2.0;
+		cast_line(&n, &l);
+		dis_line(&l);
+		n.r -= SEE / DIS_W;
+		i++;
+	}
+	return ;
+}
+
+void cast_line(t_now *n, t_line *l)
+{
+	t_f fx;
+	t_f fy;
+	
+
 }
 
 int		end_cub(void	*p)

@@ -7,8 +7,10 @@
 # include "../mlx.h"
 
 # define BL 30
-# define DIS_X 1200
-# define DIS_Y 900
+# define DIS_W 1200
+# define DIS_H 800
+
+# define SEE 0.4
 
 # define ESC_KEY 65307
 # define TL_KEY 65361
@@ -47,6 +49,18 @@ typedef struct s_now
     double  r;
 }t_now;
 
+typedef struct s_line
+{
+    unsigned data[BL];
+    double far;
+}t_line;
+
+typedef struct s_f
+{
+    double a;
+    double b;
+}t_f;
+
 //global
 
 
@@ -56,11 +70,17 @@ unsigned 	key(unsigned set);
 t_now 	now(t_now *set);
 void 	img(int flag, size_t len, void *io);
 void 	map(size_t x, size_t y, void *set);
+void 	*dis(size_t x, size_t y, int flag);
 
 int		set_key(int	key, void	*p);
 int		rm_key(int	key, void	*p);
 
-int		end_cub(void	*p);
 int		cub3d(void	*p);
+void move();
+void cast();
+void cast_line(t_now *n, t_line *l);
+
+
+int		end_cub(void	*p);
 
 #endif 

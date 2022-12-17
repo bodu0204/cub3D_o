@@ -36,10 +36,7 @@ int	set_key(int	k, void	*p)
 	else if (k == TR_KEY)
 		key(TRN_R);
 	else if (k == ESC_KEY)
-	{
 		end_cub(NULL);
-		exit(0);
-	}
 	return (0);
 }
 
