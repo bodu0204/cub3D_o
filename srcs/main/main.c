@@ -65,6 +65,55 @@ void move1(t_now *n)
 	*n = now(n);
 }
 
+void cast_line(t_now *n, t_line *l);
+
+void	dis_line1(t_line *l, size_t i);
+void	dis_line(t_line *l, size_t i)
+{
+	double y;
+	double pic_l;
+	int	d;
+
+	pic_l = l->far * sqrt(3) / 2;
+	d = DIS_H / 2 - 1;
+	y = BL / 2 - MINI_NUM;
+	while (d >= 0)
+	{
+		if (y >= 0)
+		{
+			y -= pic_l;
+			dis(i, d, l->data[(int)floor(y)], CLOR);
+		}
+		else
+			dis(i, d, ceiling(0), CLOR);
+		d--;
+	}
+	dis_line1(l, i);
+}
+
+void	dis_line1(t_line *l, size_t i)
+{
+	double y;
+	double pic_l;
+	int	d;
+
+	pic_l = l->far * sqrt(3) / 2;
+	d = DIS_H / 2;
+	y = BL / 2;
+	while (d < DIS_H)
+	{
+		if (y < BL)
+		{
+			dis(i, d, l->data[(int)floor(y)], CLOR);
+			y += pic_l;
+		}
+		else
+			dis(i, d, ceiling(0), CLOR);
+		d++;
+	}
+}
+
+
 void cast()
 {
 	size_t i;
@@ -81,11 +130,12 @@ void cast()
 		while (n.r < 0.0)
 			n.r += 2.0;
 		cast_line(&n, &l);
+		l.far *= sin((now(0).r - n.r) * M_PI);
 		dis_line(&l, i);
 		n.r -= SEE / DIS_W;
 		i++;
 	}
-	//dis();
+	dis(0, 0, 0, FLUSH);
 	return ;
 }
 
@@ -177,7 +227,7 @@ void cast_line_2(t_line *l, t_f *fx, t_f *fy)
 			y++;
 		}
 		else
-			x++;
+			x--;
 	}
 	if (f)
 		cast_line_retW(x, ry, l);
@@ -205,10 +255,10 @@ void cast_line_3(t_line *l, t_f *fx, t_f *fy)
 		{
 			f = 0;
 			rx = fy->a * y + fy->b;
-			y++;
+			y--;
 		}
 		else
-			x++;
+			x--;
 	}
 	if (f)
 		cast_line_retW(x, ry, l);
@@ -236,7 +286,7 @@ void cast_line_4(t_line *l, t_f *fx, t_f *fy)
 		{
 			f = 0;
 			rx = fy->a * y + fy->b;
-			y++;
+			y--;
 		}
 		else
 			x++;
