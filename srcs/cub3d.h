@@ -37,10 +37,17 @@
 # define TRN_NONE 0x30
 
 # define FERR_ALL ~0LU
+
 # define NORTH 1
 # define EAST 2
 # define SOUTH 3
 # define WEST 4
+
+#define BLOCK 1
+#define SPACE 2
+#define NONE 3
+#define MAP_ERROR 4
+
 
 typedef struct s_now
 {
@@ -61,6 +68,7 @@ typedef struct s_f
     double b;
 }t_f;
 
+
 //global
 
 
@@ -69,7 +77,7 @@ void	*win(void *set);
 unsigned 	key(unsigned set);
 t_now 	now(t_now *set);
 void 	img(int flag, size_t len, void *io);
-void 	map(size_t x, size_t y, void *set);
+int 	map(size_t x, size_t y, void *set);
 void 	*dis(size_t x, size_t y, int flag);
 
 int		set_key(int	key, void	*p);
