@@ -5,6 +5,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
+# include <fcntl.h>
+#include "../libft/libft.h"
 # include "../mlx.h"
 
 # define BL 30
@@ -55,6 +57,8 @@
 
 #define MINI_NUM 0.000000000000001
 
+#define BUFER_SIZE 1024
+
 typedef struct s_now
 {
     double  x;
@@ -73,6 +77,9 @@ typedef struct s_f
     double a;
     double b;
 }t_f;
+
+
+int setting(char *file);
 
 
 //global

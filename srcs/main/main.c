@@ -19,6 +19,42 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
+int setting(char *file)
+{
+	int fd;
+	char *map
+
+	fd = open(file, O_RDONLY);
+	file = read_file(fd, 0);
+	map = set_img();
+	set_map(split_by(map, '\n'));
+	free(file);
+	return ();
+}
+
+char *read_file(int fd, size_t B)
+{
+	ssize_t l;
+	char s[BUFER_SIZE];
+	char *r;
+
+	l = read(fd, s, B);
+	if (l < 0)
+		return (NULL);
+	else if (l == 0)
+	{
+		r = malloc(B + 1);
+		if (r)
+			r[B] = '\0';
+		return (r)
+	}
+	r = read_file(fd, B + l);
+	if (r)
+		ft_memcpy(r + B, s, l);
+	return (r);	
+}
+
+
 int		cub3d(void	*p)
 {
 	move();
