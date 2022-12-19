@@ -80,6 +80,7 @@ typedef struct s_f
 
 
 int setting(char *file);
+char **split_line(const char *str, size_t header);
 
 
 //global

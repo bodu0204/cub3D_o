@@ -22,15 +22,18 @@ int	main(int argc, char *argv[])
 int setting(char *file)
 {
 	int fd;
-	char *map
+	char *map;
 
 	fd = open(file, O_RDONLY);
 	file = read_file(fd, 0);
 	map = set_img();
-	set_map(split_by(map, '\n'));
+	if (!map && set_map(split_by(map, '\n')))
+		return (1);
 	free(file);
-	return ();
+	return (0);
 }
+
+
 
 char *read_file(int fd, size_t B)
 {
@@ -46,7 +49,7 @@ char *read_file(int fd, size_t B)
 		r = malloc(B + 1);
 		if (r)
 			r[B] = '\0';
-		return (r)
+		return (r);
 	}
 	r = read_file(fd, B + l);
 	if (r)
@@ -54,6 +57,23 @@ char *read_file(int fd, size_t B)
 	return (r);	
 }
 
+char **split_line(const char *str, size_t header)
+{
+	size_t i;
+	char *s;
+	char **r;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	s = malloc(i + (str[i] == '\n'));
+	if (!s)
+	return (NULL);
+	if(!i && !str[i])
+		r = malloc(header * sizeof(char *));
+		
+
+}
 
 int		cub3d(void	*p)
 {
