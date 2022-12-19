@@ -29,7 +29,7 @@ int set_head(char *file)
 	file = read_file(fd, 0);
 	close(fd);
 	ft_bzero(name, sizeof(name));
-	if (img_mame(name, file) || set_img(name, imgs) || set_cf(name, imgs))
+	if (img_mame(name, file) || set_img(name, imgs) || set_cf(name))
 		return (1);
 	free(file);
 	return (0);
@@ -196,25 +196,44 @@ void set_img_bit(unsigned *p, int bits_per_pixel, int size_line, unsigned *dst)
 	return ;
 }
 
-int set_cf(char **name)
+
+
+int set_cf(char **str)
 {
 	size_t i;
+	size_t ii;
 	size_t l;
 	unsigned n;
 	
-	i = 0;
-	while ()
+	i = 4;
+	while (i < 6)
 	{
-		l = 0;
-		while (ft_isdigit(name[l]))
+		ii = 0;
+		n = 0;
+		while (ii < 3)
 		{
-
-			l++;
+			l = 0;
+			while (ft_isdigit(str[i][l]))
+				l++;
+			if (l == 0 || l > 3 || ft_atoi(str[i]) > 0xff || \
+			(ii < 2 && str[i][l] != ',') || (ii == 2 && str[i][l] != '\0'))
+				return (1);
+			n |= ft_atoi(str[i]) << (3 - ii) * 8;
+			str[i] += l + 1;
+			ii++;
 		}
-		
+		set_cf1(i, n);
 		i++;
 	}
-	
+	return (0);
+}
+
+void	set_cf1(size_t	i, unsigned n)
+{
+	if (i == 4)
+		ceiling(n);
+	else
+		flooring(n);
 }
 
 char *read_file(int fd, size_t B)
