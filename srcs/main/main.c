@@ -9,7 +9,7 @@ int	main(int argc, char *argv[])
 		return(printf("Error\n") * 0 + 1);
 	mlx(mlx_init());
 	win(mlx_new_window(mlx(0), DIS_W, DIS_H, "cub3d"));
-	if (setting(argv[1]))
+	if (set_head(argv[1]) || set_map(argv[1]))
 		return (1);
 	mlx_loop_hook(mlx(0), cub3d, NULL);
 	mlx_hook(win(0), 2, 0, set_key, NULL);
@@ -19,21 +19,203 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
-int setting(char *file)
+int set_head(char *file)
 {
 	int fd;
-	char *map;
+	char *name[7];
+	unsigned imgs[BL * BL * 4];
 
 	fd = open(file, O_RDONLY);
 	file = read_file(fd, 0);
-	map = set_img();
-	if (!map && set_map(split_by(map, '\n')))
+	close(fd);
+	ft_bzero(name, sizeof(name));
+	if (img_mame(name, file) || set_img(name, imgs) || set_cf(name, imgs))
 		return (1);
 	free(file);
 	return (0);
 }
 
 
+int img_mame(char **dst , char *file)
+{	
+	unsigned f;
+
+	f = 0;
+	while (*file)
+	{
+		while (*file && *file == ' ')
+			file++;
+		if (switch_name(dst, file, &f))
+			break;
+		while (*file && *file != '\n')
+			file++;
+		if (*file == '\n')
+		{
+			*file = '\0';
+			file++;
+		}
+	}
+	if (f != 0b111111)
+		return (1);
+	while (*dst)
+	{
+		while (dst[f] == ' ')
+			dst[f]++;
+		dst++;
+	}
+	return (0);
+}
+
+int switch_name1(char **dst, char *file, unsigned *f);
+int switch_name2(char *file);
+
+int switch_name(char **dst, char *file, unsigned *f)
+{
+	if (!ft_memcmp(file, "NO", 2))
+	{
+		if (*f & 1U << NORTH)
+		{
+			*f ^= 1U << NORTH;
+			return (1);
+		}
+		*f |= 1U << NORTH;
+		dst[NORTH] = file + 2;
+	}
+	else if (!ft_memcmp(file, "EA", 2))
+	{
+		if (*f & 1U << EAST)
+		{
+			*f ^= 1U << EAST;
+			return (1);
+		}
+		*f |= 1U << EAST;
+		dst[EAST] = file + 2;
+	}
+	else if (!ft_memcmp(file, "SO", 2))
+	{
+		if (*f & 1U << SOUTH)
+		{
+			*f ^= 1U << SOUTH;
+			return (1);
+		}
+		*f |= 1U << SOUTH;
+		dst[SOUTH] = file + 2;
+	}
+	else
+		return (switch_name1(dst, file, &f));
+	return (0);
+}
+
+
+int switch_name1(char **dst, char *file, unsigned *f)
+{
+	if (!ft_memcmp(file, "WE", 2))
+	{
+		if (*f & 1U << WEST)
+		{
+			*f ^= 1U << WEST;
+			return (1);
+		}
+		*f |= 1U << WEST;
+		dst[WEST] = file + 2;
+	}
+	else if (*file == 'C')
+	{
+		if (*f & 1U << 4)
+		{
+			*f ^= 1U << 4;
+			return (1);
+		}
+		*f |= 1U << 4;
+		dst[4] = file + 1;
+	}
+	else if (*file == 'F')
+	{
+		if (*f & 1U << 5)
+		{
+			*f ^= 1U << 5;
+			return (1);
+		}
+		*f |= 1U << 5;
+		dst[5] = file + 1;
+	}
+	else
+		return (switch_name2(file));
+	return (0);
+}
+
+int switch_name2(char *file)
+{
+	if (*file == '\n' || !(*file))
+		return (0);
+	else
+		return (1);
+
+}
+
+void set_img_bit(unsigned *p, int bits_per_pixel, int size_line, unsigned *dst);
+int set_img(char **name, unsigned *imgs)
+{
+	size_t	i;
+	int	bp;
+	int	sl;
+	int buf;
+	void *img_data;
+
+	i = 0;
+	while (i < 4)
+	{
+		img_data = mlx_xpm_file_to_image(mlx(0), name[i], &bp, &sl);
+		if (!img_data || bp < BL || sl < BL)
+			return (1);
+		set_img_bit(mlx_get_data_addr(img_data, &bp, &sl, &buf), \
+		sl, bp , imgs + (BL * BL * i));
+		mlx_destroy_image(mlx(0), img_data);
+		i++;
+	}
+	img(SET, 0, imgs);
+	return (0);
+}
+
+void set_img_bit(unsigned *p, int bits_per_pixel, int size_line, unsigned *dst)
+{
+	size_t x;
+	size_t y;
+
+	y = 0;
+	while (y < BL)
+	{
+		x = 0;
+		while(x < BL)
+		{
+			dst[x * BL + y] = p[y * size_line + x * (bits_per_pixel / 8)];
+			x++;
+		}
+		y++;
+	}
+	return ;
+}
+
+int set_cf(char **name)
+{
+	size_t i;
+	size_t l;
+	unsigned n;
+	
+	i = 0;
+	while ()
+	{
+		l = 0;
+		while (ft_isdigit(name[l]))
+		{
+
+			l++;
+		}
+		
+		i++;
+	}
+	
+}
 
 char *read_file(int fd, size_t B)
 {
@@ -71,7 +253,7 @@ char **split_line(const char *str, size_t header)
 	return (NULL);
 	if(!i && !str[i])
 		r = malloc(header * sizeof(char *));
-		
+	
 
 }
 

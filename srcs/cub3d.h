@@ -39,20 +39,20 @@
 # define TRN_R    0x20
 # define TRN_NONE 0x30
 
-# define NORTH 1
-# define EAST 2
-# define SOUTH 3
-# define WEST 4
+# define NORTH 0
+# define EAST 1
+# define SOUTH 2
+# define WEST 3
 
 #define BLOCK 1
 #define SPACE 2
 #define NONE 3
 #define MAP_ERROR 4
 
-# define SET 1
 # define CLOR 2
 # define FLUSH 3
 # define GET 3
+# define SET 0xf
 # define FERR_ALL ~0LU
 
 #define MINI_NUM 0.000000000000001
@@ -90,7 +90,7 @@ void	*mlx(void *set);
 void	*win(void *set);
 unsigned 	key(unsigned set);
 t_now 	now(t_now *set);
-void 	img(int flag, size_t len, void *io);
+void 	img(int flag, size_t len, unsigned *io);
 int 	map(size_t x, size_t y, void *set);
 void    dis(size_t x, size_t y, unsigned c, int f);
 unsigned int	flooring(unsigned int set);
