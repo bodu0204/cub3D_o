@@ -7,7 +7,7 @@
 # include <float.h>
 # include <fcntl.h>
 #include "../libft/libft.h"
-# include "../mlx.h"
+# include "../mlx-linux/mlx.h"
 
 # define BL 30
 # define DIS_W 1200
@@ -53,7 +53,7 @@
 # define FLUSH 3
 # define GET 3
 # define SET 0xf
-# define FERR_ALL ~0LU
+# define FREE_ALL ~0LU
 
 #define MINI_NUM 0.000000000000001
 
@@ -95,6 +95,11 @@ int 	map(size_t x, size_t y, void *set);
 void    dis(size_t x, size_t y, unsigned c, int f);
 unsigned int	flooring(unsigned int set);
 unsigned int	ceiling(unsigned int set);
+
+
+int set_head(char *file);
+
+
 
 int		set_key(int	key, void	*p);
 int		rm_key(int	key, void	*p);

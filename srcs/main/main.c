@@ -1,5 +1,7 @@
 #include "../cub3d.h"
 
+int set_head(char *file);
+int set_map(char *file);
 
 int	main(int argc, char *argv[])
 {
@@ -19,6 +21,11 @@ int	main(int argc, char *argv[])
 	return (0);
 }
 
+char *read_file(int fd, size_t B);
+int img_mame(char **dst , char *file);
+int set_img(char **name, unsigned *imgs);
+int set_cf(char **str);
+
 int set_head(char *file)
 {
 	int fd;
@@ -35,6 +42,30 @@ int set_head(char *file)
 	return (0);
 }
 
+
+char *read_file(int fd, size_t B)
+{
+	ssize_t l;
+	char s[BUFER_SIZE];
+	char *r;
+
+	l = read(fd, s, B);
+	if (l < 0)
+		return (NULL);
+	else if (l == 0)
+	{
+		r = malloc(B + 1);
+		if (r)
+			r[B] = '\0';
+		return (r);
+	}
+	r = read_file(fd, B + l);
+	if (r)
+		ft_memcpy(r + B, s, l);
+	return (r);	
+}
+
+int switch_name(char **dst, char *file, unsigned *f);
 
 int img_mame(char **dst , char *file)
 {	
@@ -59,15 +90,15 @@ int img_mame(char **dst , char *file)
 		return (1);
 	while (*dst)
 	{
-		while (dst[f] == ' ')
-			dst[f]++;
+		while (**dst == ' ')
+			(*dst)++;
 		dst++;
 	}
 	return (0);
 }
 
 int switch_name1(char **dst, char *file, unsigned *f);
-int switch_name2(char *file);
+int switch_name2(char **dst, char *file, unsigned *f);
 
 int switch_name(char **dst, char *file, unsigned *f)
 {
@@ -91,7 +122,15 @@ int switch_name(char **dst, char *file, unsigned *f)
 		*f |= 1U << EAST;
 		dst[EAST] = file + 2;
 	}
-	else if (!ft_memcmp(file, "SO", 2))
+	else
+		return (switch_name1(dst, file, f));
+	return (0);
+}
+
+
+int switch_name1(char **dst, char *file, unsigned *f)
+{
+	if (!ft_memcmp(file, "SO", 2))
 	{
 		if (*f & 1U << SOUTH)
 		{
@@ -101,15 +140,7 @@ int switch_name(char **dst, char *file, unsigned *f)
 		*f |= 1U << SOUTH;
 		dst[SOUTH] = file + 2;
 	}
-	else
-		return (switch_name1(dst, file, &f));
-	return (0);
-}
-
-
-int switch_name1(char **dst, char *file, unsigned *f)
-{
-	if (!ft_memcmp(file, "WE", 2))
+	else if (!ft_memcmp(file, "WE", 2))
 	{
 		if (*f & 1U << WEST)
 		{
@@ -119,7 +150,14 @@ int switch_name1(char **dst, char *file, unsigned *f)
 		*f |= 1U << WEST;
 		dst[WEST] = file + 2;
 	}
-	else if (*file == 'C')
+	else
+		return (switch_name2(dst, file, f));
+	return (0);
+}
+
+int switch_name2(char **dst, char *file, unsigned *f)
+{
+	if (*file == 'C')
 	{
 		if (*f & 1U << 4)
 		{
@@ -139,18 +177,9 @@ int switch_name1(char **dst, char *file, unsigned *f)
 		*f |= 1U << 5;
 		dst[5] = file + 1;
 	}
-	else
-		return (switch_name2(file));
-	return (0);
-}
-
-int switch_name2(char *file)
-{
-	if (*file == '\n' || !(*file))
+	else if (*file == '\n' || !(*file))
 		return (0);
-	else
-		return (1);
-
+	return (1);
 }
 
 void set_img_bit(unsigned *p, int bits_per_pixel, int size_line, unsigned *dst);
@@ -168,7 +197,7 @@ int set_img(char **name, unsigned *imgs)
 		img_data = mlx_xpm_file_to_image(mlx(0), name[i], &bp, &sl);
 		if (!img_data || bp < BL || sl < BL)
 			return (1);
-		set_img_bit(mlx_get_data_addr(img_data, &bp, &sl, &buf), \
+		set_img_bit((unsigned *) mlx_get_data_addr(img_data, &bp, &sl, &buf), \
 		sl, bp , imgs + (BL * BL * i));
 		mlx_destroy_image(mlx(0), img_data);
 		i++;
@@ -197,6 +226,7 @@ void set_img_bit(unsigned *p, int bits_per_pixel, int size_line, unsigned *dst)
 }
 
 
+void	set_cf1(size_t	i, unsigned n);
 
 int set_cf(char **str)
 {
@@ -236,46 +266,6 @@ void	set_cf1(size_t	i, unsigned n)
 		flooring(n);
 }
 
-char *read_file(int fd, size_t B)
-{
-	ssize_t l;
-	char s[BUFER_SIZE];
-	char *r;
-
-	l = read(fd, s, B);
-	if (l < 0)
-		return (NULL);
-	else if (l == 0)
-	{
-		r = malloc(B + 1);
-		if (r)
-			r[B] = '\0';
-		return (r);
-	}
-	r = read_file(fd, B + l);
-	if (r)
-		ft_memcpy(r + B, s, l);
-	return (r);	
-}
-
-char **split_line(const char *str, size_t header)
-{
-	size_t i;
-	char *s;
-	char **r;
-
-	i = 0;
-	while (str[i] && str[i] != '\n')
-		i++;
-	s = malloc(i + (str[i] == '\n'));
-	if (!s)
-	return (NULL);
-	if(!i && !str[i])
-		r = malloc(header * sizeof(char *));
-	
-
-}
-
 int		cub3d(void	*p)
 {
 	move();
@@ -293,15 +283,15 @@ void move()
 	t_now n;
 
 	n = now(0);
-	if (key(0) & GO_ == GO_F)
+	if ((key(0) & GO_) == GO_F)
 		ra = 0;
-	else if (key(0) & GO_ == GO_L)
+	else if ((key(0) & GO_) == GO_L)
 		ra = 0.5;
-	else if (key(0) & GO_ == GO_B) 
+	else if ((key(0) & GO_) == GO_B) 
 		ra = 1;
-	else if (key(0) & GO_ == GO_R) 
+	else if ((key(0) & GO_) == GO_R) 
 		ra = 1.5;
-	if (key(0) & GO_ != GO_NONE)
+	if ((key(0) & GO_) != GO_NONE)
 	{
 		n.x += sin((n.r + ra) * M_PI);
 		n.y += cos((n.r + ra) * M_PI);
@@ -311,9 +301,9 @@ void move()
 
 void move1(t_now *n)
 {
-	if (key(0) & TRN_ == TRN_L)
+	if ((key(0) & TRN_) == TRN_L)
 		n->r += TRN_LEN;
-	else if (key(0) & TRN_ == TRN_R)
+	else if ((key(0) & TRN_) == TRN_R)
 		n->r -= TRN_LEN;
 	while (n->r >= 2.0)
 		n->r -= 2.0;
@@ -397,10 +387,10 @@ void cast()
 }
 
 void cast_line_init(double r, t_f *fx, t_f *fy);
-void cast_line_1(t_line *l, t_f *fx, t_f *fy);
-void cast_line_2(t_line *l, t_f *fx, t_f *fy);
-void cast_line_3(t_line *l, t_f *fx, t_f *fy);
-void cast_line_4(t_line *l, t_f *fx, t_f *fy);
+void cast_line1(t_line *l, t_f *fx, t_f *fy);
+void cast_line2(t_line *l, t_f *fx, t_f *fy);
+void cast_line3(t_line *l, t_f *fx, t_f *fy);
+void cast_line4(t_line *l, t_f *fx, t_f *fy);
 void cast_line_retE(double rx, double ry, t_line *l);
 void cast_line_retN(double rx, double ry, t_line *l);
 void cast_line_retW(double rx, double ry, t_line *l);
@@ -432,7 +422,7 @@ void cast_line_init(double r, t_f *fx, t_f *fy)
 
 
 
-void cast_line_1(t_line *l, t_f *fx, t_f *fy)
+void cast_line1(t_line *l, t_f *fx, t_f *fy)
 {
 	size_t x;
 	size_t y;
@@ -463,7 +453,7 @@ void cast_line_1(t_line *l, t_f *fx, t_f *fy)
 
 }
 
-void cast_line_2(t_line *l, t_f *fx, t_f *fy)
+void cast_line2(t_line *l, t_f *fx, t_f *fy)
 {
 	size_t x;
 	size_t y;
@@ -494,7 +484,7 @@ void cast_line_2(t_line *l, t_f *fx, t_f *fy)
 
 }
 
-void cast_line_3(t_line *l, t_f *fx, t_f *fy)
+void cast_line3(t_line *l, t_f *fx, t_f *fy)
 {
 	size_t x;
 	size_t y;
@@ -525,7 +515,7 @@ void cast_line_3(t_line *l, t_f *fx, t_f *fy)
 
 }
 
-void cast_line_4(t_line *l, t_f *fx, t_f *fy)
+void cast_line4(t_line *l, t_f *fx, t_f *fy)
 {
 	size_t x;
 	size_t y;
@@ -564,7 +554,7 @@ void cast_line_retW(double rx, double ry, t_line *l)
 	dx = now(0).x - rx;
 	dy = now(0).y - ry;
 	l->far = sqrt(dx * dx + dy * dy);
-	img(WEST, round((floor(ry) + 1 - ry) * BL), &(l->data));
+	img(WEST, round((floor(ry) + 1 - ry) * BL), l->data);
 }
 
 void cast_line_retN(double rx, double ry, t_line *l)
@@ -575,7 +565,7 @@ void cast_line_retN(double rx, double ry, t_line *l)
 	dx = now(0).x - rx;
 	dy = now(0).y - ry;
 	l->far = sqrt(dx * dx + dy * dy);
-	img(NORTH, round((rx - floor(rx)) * BL), &(l->data));
+	img(NORTH, round((rx - floor(rx)) * BL), l->data);
 }
 
 void cast_line_retE(double rx, double ry, t_line *l)
@@ -586,7 +576,7 @@ void cast_line_retE(double rx, double ry, t_line *l)
 	dx = now(0).x - rx;
 	dy = now(0).y - ry;
 	l->far = sqrt(dx * dx + dy * dy);
-	img(EAST, round((ry - floor(ry)) * BL), &(l->data));
+	img(EAST, round((ry - floor(ry)) * BL), l->data);
 }
 
 void cast_line_retS(double rx, double ry, t_line *l)
@@ -597,13 +587,47 @@ void cast_line_retS(double rx, double ry, t_line *l)
 	dx = now(0).x - rx;
 	dy = now(0).y - ry;
 	l->far = sqrt(dx * dx + dy * dy);
-	img(SOUTH, round((floor(rx) + 1 - rx) * BL), &(l->data));
+	img(SOUTH, round((floor(rx) + 1 - rx) * BL), l->data);
 }
+
+
+int	set_key(int	k, void	*p)
+{
+	unsigned i;
+
+	(void)p;
+	if (k == W_KEY)
+		key(GO_F);
+	else if (k == S_KEY)
+		key(GO_B);
+	else if (k == A_KEY)
+		key(GO_L);
+	else if (k == D_KEY)
+		key(GO_R);
+	else if (k == TL_KEY)
+		key(TRN_L);
+	else if (k == TR_KEY)
+		key(TRN_R);
+	else if (k == ESC_KEY)
+		end_cub(NULL);
+	return (0);
+}
+
+
+int	rm_key(int	k, void	*p)
+{
+	if (k == W_KEY || k == S_KEY || k == A_KEY || k == D_KEY)
+		key(GO_NONE);
+	else if (k == TL_KEY || k == TR_KEY)
+		key(TRN_NONE);
+	return (0);
+}
+
 
 int		end_cub(void	*p)
 {
-	img(0, 0,FERR_ALL);
-	map(0, 0,FERR_ALL);
+	img(0, 0, (unsigned int *) FREE_ALL);
+	dis(0, 0, 0, (int) FREE_ALL);
 	exit(0);
 }
 

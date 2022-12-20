@@ -15,5 +15,6 @@ void dis(size_t x, size_t y, unsigned c, int f)
 	}
 	else if (f == FLUSH)
 		mlx_put_image_to_window(mlx(0), win(0), img_p, x, y);
+	else if (f == (int) FREE_ALL)
 	return ;
 }
